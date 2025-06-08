@@ -96,6 +96,7 @@ interface DataContextType {
   deleteWorkoutPlan: (planId: string) => void;
   addMealPlan: (plan: MealPlan) => void;
   updateMealPlan: (planId: string, updates: Partial<MealPlan>) => void;
+  deleteMealPlan: (planId: string) => void;
   addWeightRecord: (record: WeightRecord) => void;
   addTestimonial: (testimonial: Testimonial) => void;
   updateTestimonial: (id: string, updates: Partial<Testimonial>) => void;
@@ -247,6 +248,12 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     saveToLocalStorage('pt_meal_plans', newPlans);
   };
 
+  const deleteMealPlan = (planId: string) => {
+    const newPlans = mealPlans.filter(plan => plan.id !== planId);
+    setMealPlans(newPlans);
+    saveToLocalStorage('pt_meal_plans', newPlans);
+  };
+
   const addWeightRecord = (record: WeightRecord) => {
     const newRecords = [...weightRecords, record];
     setWeightRecords(newRecords);
@@ -344,6 +351,7 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       deleteWorkoutPlan,
       addMealPlan,
       updateMealPlan,
+      deleteMealPlan,
       addWeightRecord,
       addTestimonial,
       updateTestimonial,

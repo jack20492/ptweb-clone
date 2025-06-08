@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Edit, Trash2, User, Mail, Phone, Search, Filter } from 'lucide-react';
+import { Plus, Edit, Trash2, User, Mail, Phone, Search, Filter, X } from 'lucide-react';
 import ImageUpload from '../ImageUpload';
 
 interface User {
@@ -111,7 +111,7 @@ const UserManagement: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="p-8">
       <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-8 space-y-4 lg:space-y-0">
         <div>
           <h2 className="text-3xl font-bold text-fitness-black">Quản lý học viên</h2>
@@ -127,7 +127,7 @@ const UserManagement: React.FC = () => {
       </div>
 
       {/* Search and Filter */}
-      <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+      <div className="bg-gray-50 rounded-xl p-6 mb-8">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
@@ -157,7 +157,7 @@ const UserManagement: React.FC = () => {
       {/* User List */}
       <div className="grid gap-6 mb-6">
         {filteredUsers.map((user) => (
-          <div key={user.id} className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+          <div key={user.id} className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
             <div className="p-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
@@ -232,11 +232,21 @@ const UserManagement: React.FC = () => {
       {showForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white border-b border-gray-200 px-8 py-6 rounded-t-2xl">
+              <div className="flex items-center justify-between">
+                <h3 className="text-2xl font-bold text-fitness-black">
+                  {editingUser ? '✏️ Chỉnh sửa người dùng' : '➕ Thêm người dùng mới'}
+                </h3>
+                <button
+                  onClick={resetForm}
+                  className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                >
+                  <X className="h-6 w-6 text-gray-500" />
+                </button>
+              </div>
+            </div>
+            
             <div className="p-8">
-              <h3 className="text-2xl font-bold text-fitness-black mb-6">
-                {editingUser ? '✏️ Chỉnh sửa người dùng' : '➕ Thêm người dùng mới'}
-              </h3>
-              
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
@@ -324,7 +334,7 @@ const UserManagement: React.FC = () => {
                   label="Ảnh đại diện"
                 />
 
-                <div className="flex space-x-4 pt-6">
+                <div className="flex space-x-4 pt-6 border-t border-gray-200">
                   <button
                     type="button"
                     onClick={resetForm}

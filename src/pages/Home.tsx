@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useData } from '../contexts/DataContext';
 import { useAuth } from '../contexts/AuthContext';
-import { Star, Play, Phone, MessageCircle, Mail, Facebook } from 'lucide-react';
+import { Star, Play, Phone, MessageCircle, Mail, Facebook, ArrowRight, Dumbbell, Target, Users, Award } from 'lucide-react';
 import Login from '../components/Login';
 
 const Home: React.FC = () => {
@@ -12,56 +12,109 @@ const Home: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-fitness-black via-gray-800 to-fitness-red text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <section className="relative bg-gradient-to-br from-fitness-black via-gray-900 to-fitness-red text-white overflow-hidden">
+        <div className="absolute inset-0 bg-black opacity-20"></div>
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-20 w-72 h-72 bg-fitness-red rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+          <div className="absolute top-40 right-20 w-72 h-72 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+          <div className="absolute -bottom-8 left-40 w-72 h-72 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+        </div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
           <div className="text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in">
+            <div className="flex justify-center mb-8">
+              <div className="bg-white bg-opacity-10 backdrop-blur-lg rounded-full p-6 border border-white border-opacity-20">
+                <Dumbbell className="h-16 w-16 text-fitness-gold" />
+              </div>
+            </div>
+            
+            <h1 className="text-5xl md:text-7xl font-bold mb-8 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
               {homeContent.heroTitle}
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto animate-slide-up">
+            
+            <p className="text-xl md:text-2xl mb-12 text-gray-200 max-w-4xl mx-auto leading-relaxed">
               {homeContent.heroSubtitle}
             </p>
-            {!user && (
-              <button
-                onClick={() => setShowLogin(true)}
-                className="bg-fitness-gold hover:bg-yellow-500 text-fitness-black font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
-              >
-                Đăng nhập
-              </button>
-            )}
+            
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+              {!user && (
+                <button
+                  onClick={() => setShowLogin(true)}
+                  className="group bg-gradient-to-r from-fitness-gold to-yellow-500 hover:from-yellow-500 hover:to-fitness-gold text-fitness-black font-bold py-4 px-8 rounded-xl text-lg transition-all duration-300 transform hover:scale-105 shadow-2xl flex items-center space-x-2"
+                >
+                  <span>Đăng nhập ngay</span>
+                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </button>
+              )}
+              
+              <div className="flex items-center space-x-8 text-sm">
+                <div className="flex items-center space-x-2">
+                  <Users className="h-5 w-5 text-fitness-gold" />
+                  <span>100+ Học viên</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Award className="h-5 w-5 text-fitness-gold" />
+                  <span>5+ Năm kinh nghiệm</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-gray-50 to-transparent"></div>
+        
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-50 to-transparent"></div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        {/* Stats Section */}
+        <section className="mb-24">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {[
+              { icon: Users, number: '100+', label: 'Học viên đã tập' },
+              { icon: Target, number: '95%', label: 'Đạt mục tiêu' },
+              { icon: Award, number: '5+', label: 'Năm kinh nghiệm' },
+              { icon: Dumbbell, number: '1000+', label: 'Buổi tập hoàn thành' }
+            ].map((stat, index) => (
+              <div key={index} className="bg-white rounded-2xl shadow-xl p-8 text-center transform hover:scale-105 transition-all duration-300 border-t-4 border-fitness-red">
+                <div className="bg-gradient-to-br from-fitness-red to-red-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                  <stat.icon className="h-8 w-8 text-white" />
+                </div>
+                <div className="text-3xl font-bold text-fitness-black mb-2">{stat.number}</div>
+                <div className="text-gray-600 font-medium">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* About Section */}
-        <section className="mb-20">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-fitness-black mb-6">Về PT Phi Nguyễn</h2>
-            <div className="w-24 h-1 bg-fitness-red mx-auto mb-8"></div>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+        <section className="mb-24">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold text-fitness-black mb-6">Về PT Phi Nguyễn</h2>
+            <div className="w-32 h-2 bg-gradient-to-r from-fitness-red to-red-600 mx-auto mb-8 rounded-full"></div>
+            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
               {homeContent.aboutText}
             </p>
           </div>
         </section>
 
         {/* Services Section */}
-        <section className="mb-20">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-fitness-black mb-6">{homeContent.servicesTitle}</h2>
-            <div className="w-24 h-1 bg-fitness-red mx-auto mb-8"></div>
+        <section className="mb-24">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold text-fitness-black mb-6">{homeContent.servicesTitle}</h2>
+            <div className="w-32 h-2 bg-gradient-to-r from-fitness-red to-red-600 mx-auto mb-8 rounded-full"></div>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {homeContent.services.map((service, index) => (
               <div
                 key={index}
-                className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-l-4 border-fitness-red"
+                className="group bg-white p-8 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 border-l-4 border-fitness-red relative overflow-hidden"
               >
-                <div className="h-12 w-12 bg-fitness-red rounded-full flex items-center justify-center mb-4 mx-auto">
-                  <span className="text-white font-bold text-lg">{index + 1}</span>
+                <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-fitness-red to-red-600 rounded-bl-full opacity-10 group-hover:opacity-20 transition-opacity"></div>
+                <div className="relative">
+                  <div className="h-16 w-16 bg-gradient-to-br from-fitness-red to-red-600 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+                    <span className="text-white font-bold text-2xl">{index + 1}</span>
+                  </div>
+                  <p className="text-gray-700 text-center font-medium text-lg leading-relaxed">{service}</p>
                 </div>
-                <p className="text-gray-700 text-center font-medium">{service}</p>
               </div>
             ))}
           </div>
@@ -69,60 +122,67 @@ const Home: React.FC = () => {
 
         {/* Testimonials Section */}
         {testimonials.length > 0 && (
-          <section className="mb-20">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-fitness-black mb-6">Phản hồi từ học viên</h2>
-              <div className="w-24 h-1 bg-fitness-red mx-auto mb-8"></div>
+          <section className="mb-24">
+            <div className="text-center mb-16">
+              <h2 className="text-5xl font-bold text-fitness-black mb-6">Phản hồi từ học viên</h2>
+              <div className="w-32 h-2 bg-gradient-to-r from-fitness-red to-red-600 mx-auto mb-8 rounded-full"></div>
             </div>
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-10">
               {testimonials.map((testimonial) => (
                 <div
                   key={testimonial.id}
-                  className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="bg-white p-10 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 relative overflow-hidden"
                 >
-                  <div className="flex items-center mb-4">
+                  <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-fitness-red to-red-600"></div>
+                  
+                  <div className="flex items-center mb-6">
                     {testimonial.avatar ? (
                       <img
                         src={testimonial.avatar}
                         alt={testimonial.name}
-                        className="w-12 h-12 rounded-full mr-4 object-cover"
+                        className="w-16 h-16 rounded-full mr-4 object-cover border-4 border-gray-100"
                       />
                     ) : (
-                      <div className="w-12 h-12 bg-fitness-red rounded-full flex items-center justify-center mr-4">
-                        <span className="text-white font-bold text-lg">
+                      <div className="w-16 h-16 bg-gradient-to-br from-fitness-red to-red-600 rounded-full flex items-center justify-center mr-4 shadow-lg">
+                        <span className="text-white font-bold text-xl">
                           {testimonial.name.charAt(0)}
                         </span>
                       </div>
                     )}
                     <div>
-                      <h4 className="font-bold text-fitness-black">{testimonial.name}</h4>
-                      <div className="flex">
+                      <h4 className="font-bold text-fitness-black text-lg">{testimonial.name}</h4>
+                      <div className="flex items-center">
                         {Array.from({ length: testimonial.rating }).map((_, i) => (
-                          <Star key={i} className="w-4 h-4 text-yellow-500 fill-current" />
+                          <Star key={i} className="w-5 h-5 text-yellow-500 fill-current" />
                         ))}
+                        <span className="ml-2 text-sm text-gray-500">({testimonial.rating}/5)</span>
                       </div>
                     </div>
                   </div>
-                  <p className="text-gray-600 italic leading-relaxed">"{testimonial.content}"</p>
+                  
+                  <div className="bg-gray-50 rounded-xl p-6 mb-6">
+                    <p className="text-gray-700 italic leading-relaxed text-lg">"{testimonial.content}"</p>
+                  </div>
+                  
                   {(testimonial.beforeImage || testimonial.afterImage) && (
-                    <div className="flex space-x-4 mt-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {testimonial.beforeImage && (
-                        <div className="flex-1">
-                          <p className="text-sm text-gray-500 mb-2">Trước</p>
+                        <div>
+                          <p className="text-sm font-medium text-gray-700 mb-2">📸 Trước</p>
                           <img
                             src={testimonial.beforeImage}
                             alt="Before"
-                            className="w-full h-32 object-cover rounded-lg"
+                            className="w-full h-40 object-cover rounded-xl border-2 border-gray-200"
                           />
                         </div>
                       )}
                       {testimonial.afterImage && (
-                        <div className="flex-1">
-                          <p className="text-sm text-gray-500 mb-2">Sau</p>
+                        <div>
+                          <p className="text-sm font-medium text-gray-700 mb-2">✨ Sau</p>
                           <img
                             src={testimonial.afterImage}
                             alt="After"
-                            className="w-full h-32 object-cover rounded-lg"
+                            className="w-full h-40 object-cover rounded-xl border-2 border-gray-200"
                           />
                         </div>
                       )}
@@ -136,35 +196,36 @@ const Home: React.FC = () => {
 
         {/* Videos Section */}
         {videos.length > 0 && (
-          <section className="mb-20">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-fitness-black mb-6">Video hướng dẫn</h2>
-              <div className="w-24 h-1 bg-fitness-red mx-auto mb-8"></div>
+          <section className="mb-24">
+            <div className="text-center mb-16">
+              <h2 className="text-5xl font-bold text-fitness-black mb-6">Video hướng dẫn</h2>
+              <div className="w-32 h-2 bg-gradient-to-r from-fitness-red to-red-600 mx-auto mb-8 rounded-full"></div>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
               {videos.map((video) => (
                 <div
                   key={video.id}
-                  className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+                  className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 group"
                 >
-                  <div className="relative aspect-video bg-gray-200">
+                  <div className="relative aspect-video bg-gray-200 overflow-hidden">
                     <iframe
                       src={`https://www.youtube.com/embed/${video.youtubeId}`}
                       title={video.title}
-                      className="absolute inset-0 w-full h-full"
+                      className="absolute inset-0 w-full h-full group-hover:scale-105 transition-transform duration-500"
                       allowFullScreen
                     />
                   </div>
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="bg-fitness-red text-white px-2 py-1 rounded text-xs font-medium">
+                  <div className="p-8">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="bg-gradient-to-r from-fitness-red to-red-600 text-white px-3 py-1 rounded-full text-sm font-medium">
                         {video.category}
                       </span>
+                      <Play className="h-5 w-5 text-fitness-red" />
                     </div>
-                    <h3 className="font-bold text-fitness-black mb-2 line-clamp-2">
+                    <h3 className="font-bold text-fitness-black mb-3 text-xl line-clamp-2 group-hover:text-fitness-red transition-colors">
                       {video.title}
                     </h3>
-                    <p className="text-gray-600 text-sm line-clamp-3">{video.description}</p>
+                    <p className="text-gray-600 line-clamp-3 leading-relaxed">{video.description}</p>
                   </div>
                 </div>
               ))}
@@ -173,51 +234,38 @@ const Home: React.FC = () => {
         )}
 
         {/* Contact Section */}
-        <section className="bg-fitness-black text-white rounded-2xl p-12">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-6">Liên hệ với tôi</h2>
-            <div className="w-24 h-1 bg-fitness-red mx-auto mb-8"></div>
-            <p className="text-xl text-gray-300">
+        <section className="bg-gradient-to-br from-fitness-black via-gray-900 to-fitness-red text-white rounded-3xl p-12 lg:p-16 relative overflow-hidden">
+          <div className="absolute inset-0 bg-black opacity-20"></div>
+          <div className="absolute top-10 right-10 w-40 h-40 bg-fitness-gold rounded-full mix-blend-multiply filter blur-xl opacity-20"></div>
+          <div className="absolute bottom-10 left-10 w-40 h-40 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-20"></div>
+          
+          <div className="relative text-center mb-16">
+            <h2 className="text-5xl font-bold mb-6">Liên hệ với tôi</h2>
+            <div className="w-32 h-2 bg-fitness-gold mx-auto mb-8 rounded-full"></div>
+            <p className="text-2xl text-gray-200">
               Sẵn sàng bắt đầu hành trình fitness của bạn? Liên hệ ngay!
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <a
-              href={`tel:${contactInfo.phone}`}
-              className="bg-green-600 hover:bg-green-700 p-6 rounded-xl text-center transition-colors duration-300 group"
-            >
-              <Phone className="h-8 w-8 mx-auto mb-3 group-hover:animate-bounce" />
-              <p className="font-medium mb-1">Điện thoại</p>
-              <p className="text-sm text-green-100">{contactInfo.phone}</p>
-            </a>
-            <a
-              href={contactInfo.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-blue-600 hover:bg-blue-700 p-6 rounded-xl text-center transition-colors duration-300 group"
-            >
-              <Facebook className="h-8 w-8 mx-auto mb-3 group-hover:animate-bounce" />
-              <p className="font-medium mb-1">Facebook</p>
-              <p className="text-sm text-blue-100">Nhắn tin</p>
-            </a>
-            <a
-              href={contactInfo.zalo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-blue-500 hover:bg-blue-600 p-6 rounded-xl text-center transition-colors duration-300 group"
-            >
-              <MessageCircle className="h-8 w-8 mx-auto mb-3 group-hover:animate-bounce" />
-              <p className="font-medium mb-1">Zalo</p>
-              <p className="text-sm text-blue-100">Chat trực tiếp</p>
-            </a>
-            <a
-              href={`mailto:${contactInfo.email}`}
-              className="bg-red-600 hover:bg-red-700 p-6 rounded-xl text-center transition-colors duration-300 group"
-            >
-              <Mail className="h-8 w-8 mx-auto mb-3 group-hover:animate-bounce" />
-              <p className="font-medium mb-1">Email</p>
-              <p className="text-sm text-red-100">{contactInfo.email}</p>
-            </a>
+          
+          <div className="relative grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { icon: Phone, label: 'Điện thoại', value: contactInfo.phone, href: `tel:${contactInfo.phone}`, color: 'from-green-500 to-green-600' },
+              { icon: Facebook, label: 'Facebook', value: 'Nhắn tin', href: contactInfo.facebook, color: 'from-blue-500 to-blue-600' },
+              { icon: MessageCircle, label: 'Zalo', value: 'Chat trực tiếp', href: contactInfo.zalo, color: 'from-blue-400 to-blue-500' },
+              { icon: Mail, label: 'Email', value: contactInfo.email, href: `mailto:${contactInfo.email}`, color: 'from-red-500 to-red-600' }
+            ].map((contact, index) => (
+              <a
+                key={index}
+                href={contact.href}
+                target={contact.href.startsWith('http') ? '_blank' : undefined}
+                rel={contact.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                className={`group bg-gradient-to-br ${contact.color} hover:scale-105 p-8 rounded-2xl text-center transition-all duration-300 shadow-2xl border border-white border-opacity-20 backdrop-blur-lg`}
+              >
+                <contact.icon className="h-10 w-10 mx-auto mb-4 group-hover:scale-110 transition-transform duration-300" />
+                <p className="font-bold mb-2 text-lg">{contact.label}</p>
+                <p className="text-sm opacity-90">{contact.value}</p>
+              </a>
+            ))}
           </div>
         </section>
       </div>

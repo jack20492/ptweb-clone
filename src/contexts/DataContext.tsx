@@ -27,16 +27,20 @@ interface WorkoutPlan {
   days: DayWorkout[];
 }
 
+interface FoodItem {
+  name: string;
+  macroType: 'Carb' | 'Pro' | 'Fat';
+  calories: number;
+  notes: string;
+}
+
 interface MealPlan {
   id: string;
   clientId: string;
   meals: {
     name: string;
-    calories: number;
-    protein: number;
-    carbs: number;
-    fat: number;
-    foods: string[];
+    totalCalories: number;
+    foods: FoodItem[];
   }[];
   totalCalories: number;
   notes?: string;
